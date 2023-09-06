@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Board">
+
+	<!-- 레코드 1건 등록 -->
+	<insert id="insert" parameterType="Board">
+		insert into board(board_idx, writer, title, content)
+		values(seq_board.nextval, #{writer}, #{title}, #{content})
+		
+		<selectKey keyColumn="board_idx" keyProperty="board_idx" resultType="int" order="AFTER">
+			select seq_board.currval as board_idx from dual
+		</selectKey>
+	</insert>
+
+</mapper>
