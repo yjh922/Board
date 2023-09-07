@@ -36,18 +36,24 @@ public class BoardServiceImpl implements BoardService{
 	}
 
 	public List selectAll() {
-		return null;
+		return boardDAO.selectAll();
+		
 	}
 
 	public Board select(int board_idx) {
-		return null;
+		return boardDAO.select(board_idx);
 	}
 
 	public void update(Board board) {
 		
 	}
 
-	public void delete(int board_idx) {
+	public void delete(int board_idx) throws BoardException, BoardFileException{
+		//이미지 레코드 삭제
+		boardFileDAO.deleteByBoardIdx(board_idx);
+		
+		//보드 삭제
+		boardDAO.delete(board_idx);
 		
 	}
 

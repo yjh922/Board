@@ -7,18 +7,18 @@ import org.sp.board.exception.FileException;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
-//스캔에 의해 자동 인스턴스 생성
 @Component
 public class FileManager {
 	
 	//확장자 구하기
 	public static String getExt(String path) {
 		int index=path.lastIndexOf(".");
-		return path.substring(index+1, path.length());//exclusive
+		
+		return path.substring(index+1, path.length()); //exclusive
 		
 	}
-	
-	//최종 파일명 만들기
+
+	//파일명 생성
 	public static String createFilename(String filename) {
 		long time=System.currentTimeMillis();
 		
@@ -28,31 +28,43 @@ public class FileManager {
 	//파일 저장
 	public String save(String path, String filename, MultipartFile mf) throws FileException{
 		
-		System.out.println(filename);
-		
 		//파일명 만들기
 		String newName=FileManager.createFilename(filename);
 		
-		//확장자 구하기
+		/*
+		 * if (path.equals("파일명")) { throw new FileException("이미지 저장 실패"); }
+		 */
 		
-		File file = new File(path+newName);
 		
+		File file=new File(path+newName);
 		try {
+			
+			
 			mf.transferTo(file);
 		} catch (IllegalStateException e) {
-			throw new FileException("파일저장 실패", e);
+			throw new FileException("이미지 저장 실패", e);
+			
 		} catch (IOException e) {
-			throw new FileException("파일저장 실패", e);
+			throw new FileException("이미지 저장 실패", e);
+			
+		} catch (Exception e) {
+			throw new FileException("이미지 저장 실패", e);
 		}
 		
 		return newName;
 	}
+	
+	//파일 삭제
+	public void remove(String path) throws FileException{
+		
+		File file = new File(path);
+		boolean result=file.delete();//파일 삭제
+		if(result==false) {
+			throw new FileException("파일 삭제 실패입니다.");
+		}
+	}
+	
 }
-
-
-
-
-
 
 
 

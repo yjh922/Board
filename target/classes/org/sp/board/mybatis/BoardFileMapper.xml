@@ -7,4 +7,14 @@
 		insert into board_file(board_file_idx, board_idx, filename)
 		values(seq_board_file.nextval, #{board.board_idx}, #{filename})
 	</insert>
+	
+	<!-- 부모의 fk를 이용하여 레코드 가져오기 -->
+	<select id="selectByBoardIdx" parameterType="int" resultType="BoardFile">
+		select * from board_file where board_idx=#{board_idx}
+	</select>
+	
+	<!-- 부모의 딸려있는 레코드만 삭제 -->
+	<delete id="deleteByBoardIdx">
+		delete board_file where board_idx=#{board_idx}
+	</delete>
 </mapper>

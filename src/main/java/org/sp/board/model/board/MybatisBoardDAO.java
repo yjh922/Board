@@ -22,6 +22,8 @@ public class MybatisBoardDAO implements BoardDAO{
 		sqlSession.commit();//DML인경우
 		mybatisConfig.release(sqlSession);
 		
+		//result=0;//일부러 에러 테스트
+		
 		if(result==0) {
 			//개발자가 일부러 관련있는 에러를 일으키자
 			
@@ -30,19 +32,31 @@ public class MybatisBoardDAO implements BoardDAO{
 	}
 
 	public List selectAll() {
-		return null;
+		SqlSession sqlSession=mybatisConfig.getSqlSession();
+		List list=sqlSession.selectList("Board.selectAll");
+		mybatisConfig.release(sqlSession);
+		return list;
 	}
 
 	public Board select(int board_idx) {
-		return null;
+		SqlSession sqlSession = mybatisConfig.getSqlSession();
+		Board board=sqlSession.selectOne("Board.select", board_idx);
+		mybatisConfig.release(sqlSession);
+		return board;
 	}
 
 	public void update(Board board) {
 		
 	}
 
-	public void delete(int board_idx) {
-		
+	public void delete(int board_idx) throws BoardException{
+		SqlSession sqlSession = mybatisConfig.getSqlSession();
+		int result=sqlSession.delete("Board.delete", board_idx);
+		sqlSession.commit();
+		mybatisConfig.release(sqlSession);
+		if(result<1) {
+			throw new BoardException("삭제실패");
+		}
 	}
 
 }

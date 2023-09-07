@@ -20,7 +20,6 @@ public class MybatisBoardFileDAO implements BoardFileDAO{
 		sqlSession.commit();
 		mybatisConfig.release(sqlSession);
 		
-		//result=0;//일부러 에러 테스트
 		
 		if(result==0) {
 			throw new BoardFileException("글 등록에 실패하였습니다.");
@@ -41,6 +40,16 @@ public class MybatisBoardFileDAO implements BoardFileDAO{
 
 	public void delete(int board_file_idx) {
 		
+	}
+	
+	public void deleteByBoardIdx(int board_idx) throws BoardFileException{
+		SqlSession sqlSession = mybatisConfig.getSqlSession();
+		int result=sqlSession.delete("BoardFile.deleteByBoardIdx", board_idx);
+		sqlSession.commit();
+		mybatisConfig.release(sqlSession);
+		if(result<1) {
+			throw new BoardFileException("이미지 레코드 삭제 실패");
+		}
 	}
 	
 }

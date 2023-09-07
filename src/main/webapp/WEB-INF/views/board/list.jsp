@@ -1,7 +1,10 @@
+<%@page import="org.sp.board.domain.Board"%>
+<%@page import="java.util.List"%>
 <%@page import="org.sp.board.util.Pager"%>
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%
 	Pager pager=(Pager)request.getAttribute("pager");
+	List<Board> boardList=(List)request.getAttribute("boardList");
 %>
 <!DOCTYPE html>
 <html>
@@ -75,18 +78,26 @@ $(function(){
 			<th>조회수</th>
 			<th>등록일</th>
 		</tr>
+		<%int num=pager.getNum(); %>
+		<%int curPos=pager.getCurPos();//페이지당 List의 시작 index %>
 		<%for(int i=1; i<=pager.getPageSize();i++){ %>
+		<%if(num<1)break; %>
+		<%Board board=boardList.get(curPos++); %>
 		<tr>
-			<td>Jill</td>
-			<td>Smith</td>
-			<td>50</td>
-			<td>조회수</th>
-			<td>등록일</th>
+			<td><%=num-- %></td>
+			<td><%=board.getWriter() %></td>
+			<td><a href="/board/content?board_idx=<%=board.getBoard_idx()%>"><%=board.getTitle() %></a></td>
+			<td><%=board.getHit() %></th>
+			<td><%=board.getRegdate() %></th>
 		</tr>
 		<%} %>
 		<tr>
 			<td colspan="6">
-				<a href="/board/list?currentPage=<%=pager.getFirstPage()-1%>">◀</a>
+				<%if(pager.getFirstPage()-1<1){ %>
+					<a href="javascript:alert('이전 페이지가 없습니다');">◀</a>
+				<%}else{ %>
+					<a href="/board/list?currentPage=<%=pager.getFirstPage()-1%>">◀</a>
+				<%} %>
 				<%for(int i=pager.getFirstPage();i<=pager.getLastPage();i++){ %>
 				<%if(i>pager.getTotalPage())break; %>
 					<a href="/board/list?currentPage=<%=i%>">[<%=i %>]</a>

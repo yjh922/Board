@@ -11,5 +11,52 @@
 			select seq_board.currval as board_idx from dual
 		</selectKey>
 	</insert>
-
+	
+	
+	<!-- 모든 게시물 가져오기
+		릴레이션 상 자식인 BoardFile 테이블의 레코드도 함께 가져오려면 자동매핑으로는 해결이 안됨
+		따라서 resultMAp 이용하여 수동으로 매핑해보자
+	 -->
+	 <resultMap type="Board" id="boardMap">
+	 	<id column="board_idx" property="board_idx"/>
+	 	<result column="writer" property="writer"/>
+	 	<result column="title" property="title"/>
+	 	<result column="content" property="content"/>
+	 	<result column="hit" property="hit"/>
+	 	<result column="regdate" property="regdate"/>
+	 	
+	 	<collection column="board_idx"  property="boardFileList" javaType="java.util.List" ofType="BoardFile" select="BoardFile.selectByBoardIdx"></collection>
+	 </resultMap>
+	 
+	 <!-- 게시물 목록 가져오기 -->
+	 <sql id="selectSql">
+	 	select board_idx, writer, title, content, hit, regdate from board
+	 </sql>
+	<select id="selectAll" resultMap="boardMap">
+		<include refid="selectSql"/>
+		 order by board_idx desc
+	</select>
+	
+	<!-- 게시물 한건 가져오기 -->
+	<select id="select" resultMap="boardMap" parameterType="int">
+		<include refid="selectSql"/>
+		where board_idx=#{board_idx}
+	</select>
+	
+	<!-- 게시물 1건 삭제 -->
+	<delete id="delete" parameterType="int">
+		delete board where board_idx=#{board_idx}
+	</delete>
 </mapper>
+
+
+
+
+
+
+
+
+
+
+
+
