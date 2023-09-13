@@ -47,9 +47,7 @@ public class FileManager {
 		} catch (IOException e) {
 			throw new FileException("이미지 저장 실패", e);
 			
-		} catch (Exception e) {
-			throw new FileException("이미지 저장 실패", e);
-		}
+		} 
 		
 		return newName;
 	}

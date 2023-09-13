@@ -30,6 +30,8 @@ input[type=button] {
   border: none;
   border-radius: 4px;
   cursor: pointer;
+  float: right;
+  margin-left: 10px;
 }
 
 input[type=button]:hover {
@@ -41,8 +43,11 @@ input[type=button]:hover {
   background-color: #f2f2f2;
   padding: 20px;
 }
+h3{
+	margin-left:200px;
+}
 </style>
-<%@ include file="./inc/head_link.jsp" %>
+	<%@ include file="../inc/header_link.jsp"%>
 <script type="text/javascript">
 
 function regist(){
@@ -56,8 +61,23 @@ function regist(){
 
 
 $(function(){
+	$("#content").summernote({
+		 height: 300,                 // 에디터 높이
+		  minHeight: null,             // 최소 높이
+		  maxHeight: null,             // 최대 높이
+		  focus: true,                  // 에디터 로딩후 포커스를 맞출지 여부
+		  lang: "ko-KR",					// 한글 설정
+		  
+	});
+	
 	$("#bt_edit").click(function(){
-		
+		if(confirm("수정하시겠습니까?")){
+			$("form").attr({
+				action:"/board/edit",
+				method:"post"
+			});
+			$("form").submit();
+		}
 	});
 	$("#bt_del").click(function(){
 		if(confirm("삭제하시겠어요?")){
@@ -78,9 +98,17 @@ $(function(){
 </script>
 </head>
 <body>
-
+<div class="topnav" id="myTopnav">
+		<a href="#home" class="active">홈</a> 
+		<a href="#news">게시판</a> 
+		<a href="#contact">로그인</a> 
+		<a href="#about">등록</a> 
+		<a href="javascript:void(0);" class="icon" onclick="myFunction()"> 
+			<i class="fa fa-bars"></i>
+		</a>
+	</div>
 <h3>글 상세보기</h3>
-
+<br>
 <div class="container">
   <form>
   	<input type="hidden" name="board_idx" value="<%=board.getBoard_idx()%>">
@@ -92,7 +120,7 @@ $(function(){
     <input type="text" name="title" value="<%=board.getTitle()%>">
 
     <label for="subject">내용</label>
-    <textarea id="content" name="content" placeholder="내용을 입력해주세요.." style="height:200px"><%=board.getContent() %>></textarea>
+    <textarea id="content" name="content" placeholder="내용을 입력해주세요.." style="height:200px"><%=board.getContent() %></textarea>
 	<%for(int i=0; i<board.getBoardFileList().size();i++){ %>
 	<%BoardFile boardFile=board.getBoardFileList().get(i);%>
 	<input type="hidden" name="filename" value="<%=boardFile.getFilename()%>">
@@ -100,9 +128,8 @@ $(function(){
 		<img src="/static/data/<%=boardFile.getFilename()%>" width="150px">
 	</P>
 	<%} %>
-	<input type="file" name="photo">
-	<br>
-	<input type="file" name="photo">
+	
+	
 	<p>
     <input type="button" value="수정" id="bt_edit">
     <input type="button" value="삭제" id="bt_del">

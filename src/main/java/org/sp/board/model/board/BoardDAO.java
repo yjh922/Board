@@ -10,4 +10,5 @@ public interface BoardDAO {
 	public Board select(int board_idx);
 	public void update(Board board);
 	public void delete(int board_idx);
+	public void updateHit(int board_idx);
 }

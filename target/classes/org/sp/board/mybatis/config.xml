@@ -6,8 +6,10 @@
 	<typeAliases>
 		<typeAlias type="org.sp.board.domain.Board" alias="Board"/>
 		<typeAlias type="org.sp.board.domain.BoardFile" alias="BoardFile"/>
+		<typeAlias type="org.sp.board.domain.Admin" alias="Admin"/>
+
 	</typeAliases>
-	<environments default="development">
+	<!-- <environments default="development">
 		<environment id="development">
 			<transactionManager type="JDBC" />
 			<dataSource type="JNDI">
@@ -15,9 +17,12 @@
 			
 			</dataSource>
 		</environment>
-	</environments>
+	</environments> -->
 	<mappers>
 		<mapper resource="org/sp/board/mybatis/BoardMapper.xml" />
 		<mapper resource="org/sp/board/mybatis/BoardFileMapper.xml" />
+		<mapper resource="org/sp/board/mybatis/AdminMapper.xml" />
+
+		
 	</mappers>
 </configuration>

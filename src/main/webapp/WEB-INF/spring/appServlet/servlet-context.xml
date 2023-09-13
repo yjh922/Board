@@ -23,17 +23,9 @@
 		p:suffix=".jsp"/>
 
 	
-	<!-- 업로드 설정 -->
-	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"
-		p:maxUploadSize="2097152"/>
-		
-
-	<!-- mybatis 팩토리 부유객체 등록 -->
-	<beans:bean class="org.sp.board.mybatis.MybatisConfig" id="mybatisConfig" factory-method="getInstance" />
-		
 	
 	
-	<context:component-scan base-package="org.sp.board" />
+	<context:component-scan base-package="org.sp.board.controller.client" />
 	
 	
 	

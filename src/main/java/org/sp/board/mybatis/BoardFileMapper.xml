@@ -17,4 +17,9 @@
 	<delete id="deleteByBoardIdx">
 		delete board_file where board_idx=#{board_idx}
 	</delete>
+	<update id="update" parameterType="BoardFile">
+		update board_file set filename=#{filename}
+		where board_idx=#{board_idx}
+	</update>
+	
 </mapper>

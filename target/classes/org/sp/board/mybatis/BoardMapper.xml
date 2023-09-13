@@ -47,6 +47,17 @@
 	<delete id="delete" parameterType="int">
 		delete board where board_idx=#{board_idx}
 	</delete>
+	
+	<!-- 게시물 한건 수정 -->
+	<update id="update" parameterType="Board" >
+		update board set writer=#{writer}, title=#{title}, content=#{content}
+		where board_idx=#{board_idx}
+	</update>
+	
+	<!-- 조회수 증가 -->
+	<update id="updateHit"  parameterType="int">
+		update board set hit=hit+1 where board_idx=#{board_idx}
+	</update>
 </mapper>
 
 
