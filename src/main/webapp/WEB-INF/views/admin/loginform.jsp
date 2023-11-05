@@ -55,6 +55,10 @@ input:hover, .btn:hover {
 	background-color: #dd4b39;
 	color: white;
 }
+.kakao {
+	background-color: yellow;
+	color: black;
+}
 
 /* style the submit button */
 input[type=button] {
@@ -184,12 +188,11 @@ input[type=button]:hover {
 					<input type="button" value="Login" id="bt_login">
 				</div>
 				<div class="col">
-					<a href="#" class="fb btn"> <i class="fa fa-facebook fa-fw"></i>
-						Login with Facebook
-					</a> <a href="#" class="twitter btn"> <i
-						class="fa fa-twitter fa-fw"></i> Login with Twitter
-					</a> <a href="#" class="google btn"><i class="fa fa-google fa-fw">
-					</i> Login with Google+ </a>
+					
+					</a> <a href="https://kauth.kakao.com/oauth/authorize?client_id=01db702adc66ea9d534b86358a9833e9
+					&redirect_uri=	http://localhost:7777/admin/kakaologin&response_type=code"" class="kakao btn">
+					<i class="fa fa-kakao fa-fw">
+					</i> Login with Kakao </a>
 				</div>
 
 			</div>

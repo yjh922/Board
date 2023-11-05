@@ -7,6 +7,8 @@
 		<typeAlias type="org.sp.board.domain.Board" alias="Board"/>
 		<typeAlias type="org.sp.board.domain.BoardFile" alias="BoardFile"/>
 		<typeAlias type="org.sp.board.domain.Admin" alias="Admin"/>
+		<typeAlias type="org.sp.board.domain.Book" alias="Book"/>
+		<typeAlias type="org.sp.board.domain.Dog" alias="Dog"/>
 
 	</typeAliases>
 	<!-- <environments default="development">
@@ -22,6 +24,8 @@
 		<mapper resource="org/sp/board/mybatis/BoardMapper.xml" />
 		<mapper resource="org/sp/board/mybatis/BoardFileMapper.xml" />
 		<mapper resource="org/sp/board/mybatis/AdminMapper.xml" />
+		<mapper resource="org/sp/board/mybatis/BookMapper.xml" />
+		<mapper resource="org/sp/board/mybatis/DogMapper.xml" />
 
 		
 	</mappers>

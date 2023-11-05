@@ -65,7 +65,7 @@ $(function(){
 </head>
 <body>
 	<h2>
-		<a href="/admin/loginform">관리자 모드</a>
+		<a href="/admin/loginform">로그아웃</a>
 	</h2>
 	<h1>자유게시판</h1>
 	<br>

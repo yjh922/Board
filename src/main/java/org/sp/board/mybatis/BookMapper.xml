@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Book">
+	
+	<!-- 예약 목록 가져오기-->
+	<select id="selectAll" resultType="Book">
+		select * from book order by book_idx desc
+	</select>
+	
+	<!-- 예약 상세내역 가져오기 -->
+	<select id="select" parameterType="int" resultType="Book">
+		select * from book where book_idx=#{book_idx}
+	</select>
+	
+	<!-- 예약 확정 -->
+	<update id="updateOk" parameterType="Book">
+		update book set confirmed='예약 확정' where book_idx=#{book_idx}
+	</update>
+	
+	<!-- 예약 취소 -->
+	<update id="updateCancle" parameterType="Book">
+		update book set confirmed='예약 취소' where book_idx=#{book_idx}
+	</update>
+</mapper>

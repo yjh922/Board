@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Dog">
+
+	<!-- 예약 등록하기 -->
+	<insert id="insert" parameterType="Dog">
+		insert into dog(dog_idx, bookdate, booktime, name, phone, content)
+		values(seq_dog.nextval, #{bookdate},#{booktime},#{name},#{phone},#{content})
+	</insert>
+	
+	<!-- 예약 목록 가져오기-->
+	<select id="selectAll" resultType="Dog">
+		select * from dog order by dog_idx desc
+	</select>
+	
+	<!-- 예약 상세내역 가져오기 -->
+	<select id="select" parameterType="int" resultType="Dog">
+		select * from dog where dog_idx=#{dog_idx}
+	</select>
+	
+	<!-- 예약 확정 -->
+	<update id="updateOk" parameterType="Dog">
+		update dog set comfirmed='예약 확정' where dog_idx=#{dog_idx}
+	</update>
+	
+	<!-- 예약 취소 -->
+	<update id="updateCancle" parameterType="Dog">
+		update dog set comfirmed='예약 취소' where dog_idx=#{dog_idx}
+	</update>
+
+</mapper>
